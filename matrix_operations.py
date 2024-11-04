@@ -106,17 +106,17 @@ def matrix_Subtraction(matrix1, matrix2):
     return matrix1 - matrix2
 
 
-print(matrix_Multiplication(matrixA, vectorB.T) == (matrixA @ vectorB.T))
+print(np.allclose(matrix_Multiplication(matrixA, vectorB.T),(matrixA @ vectorB.T)))
 
-print(matrix_Multiplication(matrixC, matrixD) == (matrixC @ matrixD))
+print(np.allclose(matrix_Multiplication(matrixC, matrixD),(matrixC @ matrixD)))
 
-print(matrix_Multiplication(matrixTallSkinny, matrixShortFat) == (matrixTallSkinny @ matrixShortFat))
+print(np.allclose(matrix_Multiplication(matrixTallSkinny, matrixShortFat),(matrixTallSkinny @ matrixShortFat)))
 
-print(matrix_Multiplication(vector1.T, vector2) == (vector1.T @ vector2))
+print(np.allclose(matrix_Multiplication(vector1.T, vector2),(vector1.T @ vector2)))
 
-print(matrix_Addition(matrixC, matrixD) == (matrixC + matrixD))
-print(matrix_Subtraction(matrixC, matrixD) == (matrixC - matrixD))
+print(np.allclose(matrix_Addition(matrixC, matrixD), (matrixC + matrixD)))
+print(np.allclose(matrix_Subtraction(matrixC, matrixD), (matrixC - matrixD)))
 
-print(matrix_Multiplication(matrixC, matrixIdentity) == matrixC)
+print(np.allclose(matrix_Multiplication(matrixC, matrixIdentity),matrixC))
 
 
