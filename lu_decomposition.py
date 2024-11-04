@@ -52,7 +52,33 @@ def lu_factorization_pivot_at_00(matrix):
 
 def solve_x_by_lu(matrix, given_vector):
 
-    matrixL, matrixU = lu_factorization_pivot_at_00(matrix)
+    """
+    Solves for vector x in Ax=b equation, where A is matrix with shape (m,n) and b is vector with shape (n,1).
+
+    Parameters
+    ----------
+    matrix : np.ndarray
+        Array with shape (m,n).
+    given_vector : np.ndarray
+        Array with shape (n,1).
+
+    Returns
+    -------
+    np.ndarray
+        The unique vector with shape (m,1) that makes the equation A @ x = b true.
+    Raises
+    ------
+    ValueError
+        Exception thrown when the dimensions of the matrix and vector are incompatible.
+    """
+
+    if matrix.shape[1] != given_vector.shape[0]:
+        raise ValueError("Matrix and vector are not of proper dimensions to solve equation.")
+
+    try: 
+        matrixL, matrixU = lu_factorization_pivot_at_00(matrix)
+    except:
+        print("Matrix must be square to find a unique solution for the equation.")
 
     #forward substitution
     vectorY = np.zeros((matrixL.shape[0], 1))

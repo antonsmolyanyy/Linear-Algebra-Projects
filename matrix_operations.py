@@ -39,7 +39,7 @@ def matrix_Multiplication(matrix1, matrix2):
     """
 
     if matrix1.shape[1] != matrix2.shape[0]:
-        raise Exception("Matrices are not of proper dimensions to perform multiplication.")
+        raise ValueError("Matrices are not of proper dimensions to perform multiplication.")
 
     resultantMatrix = np.zeros((matrix1.shape[0], matrix2.shape[1]))
 
