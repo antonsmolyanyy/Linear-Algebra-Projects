@@ -1,25 +1,19 @@
 #LU Decomposition
 import numpy as np
 import copy
-import scipy
 
-matrixA = np.array([[3,-7,-2,2], [-3,5,1,0], [6,-4,0,-5], [-9,5,-5,12]], dtype=float)
-vectorB = np.array([[-9,5,7,11]])
+matrixA = np.array([[-3,-3,-2], [3,0,2], [-6,6,-8]], dtype=float)
+vectorB = np.array([[13,-10,22]])
 
 vector1 = np.array([[1,2,3]])
 vector2 = np.array([[4,5,6]])
 
 matrixC = np.array([[3,-1,0], [2,5,1], [-7,1,3]])
 matrixD = np.array([[6,-1,0], [0,1,-2], [3,-8,1]])
-matrixF = np.array([[3,-6,-3], [2,0,6], [-4,7,4]])
 
-matrixE = np.array([[1,2,3], [2,5,7], [2,7,8]])
-
-matrixTallSkinny = np.array([[3,-7], [5,1], [6,-4]])
-matrixShortFat = np.array([[3,6,2], [9,1,0]])
-
-matrixIdentity = np.array([[1,0,0], [0,1,0], [0,0,1]])
 matrixP = np.array([[0,1,0], [1,0,0], [0,0,1]])
+
+matrixC = np.array([[3,-1,0], [2,5,1], [-7,1,3]])
 
 def lu_factorization_pivot_at_00(matrix):
 
@@ -61,35 +55,33 @@ def lu_factorization_pivot_at_00(matrix):
 
     return (l, u)
 
-def solve_x_by_lu(matrix, vector):
+def solve_x_by_lu(matrix, given_vector):
 
     matrixL, matrixU = lu_factorization_pivot_at_00(matrix)
-    #matrixU = lu_factorization_pivot_at_00(matrix)[1]
-
-    #vectorC = np.array([[1] + [0] * (int(matrixL.shape[0]) - 1)])
 
     #forward substitution
-    vectorC = np.zeros((1, matrixL.shape[0]))
+    vectorY = np.zeros((matrixL.shape[0], 1))
 
-    for vectorPos in range(0, int(vectorC.shape[0])):
+    for position in range(vectorY.shape[0]):
 
-        vectorC[vectorPos] = vector[vectorPos]
-        for i in range(vectorPos,0):
-            vectorC[vectorPos] -= matrixL[vectorPos, i] * vector[vectorPos - i]
-
+        vectorY[position,0] = given_vector[position,0]
+        for i in range(position,0,-1):
+            vectorY[position,0] -= matrixL[position, i-1] * vectorY[i-1]
+    
     #backwards substitution
-    vectorX = np.zeros((1, matrixL.shape[0]))
-    vectorX[0, len(vectorX) - 1] = vectorC[0, len(vectorC) - 1] / matrixU[len(matrixU), len(matrixU)] 
+    vectorX = np.zeros((matrixL.shape[0], 1))
 
-    for vectorPos in range(int(vectorC.shape[0]) - 1, 0):
+    for position in range(vectorY.shape[0]-1,-1,-1):
 
-        vectorX[vectorPos] = vectorC[vectorPos] 
-        for i in range(0,vectorPos):
-            vectorC[vectorPos] -= matrixL[vectorPos, i] * vector[vectorPos - i]
+        vectorX[position,0] = vectorY[position,0] 
+        for i in range(position,vectorY.shape[0]-1):
+            vectorX[position,0] -= matrixU[position, i+1] * vectorX[i+1,0]
+        vectorX[position,0] /= matrixU[position,position]
+
+    return vectorX
 
 
-print(lu_factorization_pivot_at_00(matrixA)[0])
-print(lu_factorization_pivot_at_00(matrixA)[1])
+print(solve_x_by_lu(matrixA, vectorB.T) == np.linalg.solve(matrixA, vectorB.T))
 
 #print(scipy.linalg.lu(matrixA))
 #print(lu_factorization(matrixNonSquare1))
