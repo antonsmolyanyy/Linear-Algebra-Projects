@@ -108,8 +108,17 @@ def permute_matrix(perm_matrix, matrix):
 
     return matrix
     
+def generate_perm_matrix(vector):
+
+    perm_matrix = np.zeros((vector.shape[0], vector.shape[0]))
+
+    for row in range(vector.shape[0]):
+        perm_matrix[row,vector[row,0]-1] = 1
+
+    return perm_matrix
 
 #print(np.allclose(solve_x_by_lu(matrixA, vectorB.T), np.linalg.solve(matrixA, vectorB.T)))
 #print(np.allclose(solve_x_by_lu(matrixC, vectorD.T), np.linalg.solve(matrixC, vectorD.T)))
 
-print(permute_matrix(matrixP, matrixE))
+#print(permute_matrix(matrixP, matrixE))
+print(generate_perm_matrix(vectorP))
