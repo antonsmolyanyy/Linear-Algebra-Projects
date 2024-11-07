@@ -27,7 +27,7 @@ def lu_factorization_pivot_anywhere(matrix):
     -------
     tuple of np.ndarray
         A tuple containing:
-        - total_perm_vector (nd.ndarray): nx1 vector that holds the permutation information as row indices
+        - total_perm_vector (nd.ndarray): vector that holds the permutation information as row indices (shape n,1)
         - l (np.ndarray): Lower triangular array with 1's on diagonal (shape nxn).
         - u (np.ndarray): Upper triangular array (shape nxn).
 
