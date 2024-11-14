@@ -49,12 +49,10 @@ def lu_factorization_pivot_anywhere(matrix):
 
     for step in range(size):
 
-        perm_vector = np.arange(1, size + 1).reshape(1, size)
-        largest = currMatrix[step,step]
-        index_largest = step
-        for index in range(step, matrix.shape[0]):
-            if (abs(currMatrix[index,step]) > largest):
-                index_largest = index
+        perm_vector = np.arange(1, size + 1, dtype=int).reshape(1, size)
+
+        #finds index of largest pivot in current column
+        index_largest = np.argmax(abs(currMatrix[step:, step])) + step
 
         if (index_largest != step):
             pivot_row = perm_vector[0,index_largest]
@@ -139,7 +137,7 @@ def generate_perm_matrix(vector):
 #print(np.allclose(solve_x_by_lu(matrixA, vectorB.T), np.linalg.solve(matrixA, vectorB.T)))
 
 #print(permute_matrix(matrixP.T, matrixE))
-#print(lu_factorization_pivot_anywhere(matrixC))
+print(lu_factorization_pivot_anywhere(matrixC))
 
 #print(lu_factorization_pivot_anywhere(matrixE)[1] @ lu_factorization_pivot_anywhere(matrixE)[2])
 #print(scipy.linalg.lu(matrixE)[1] @ scipy.linalg.lu(matrixE)[2])
