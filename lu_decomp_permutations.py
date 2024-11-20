@@ -3,15 +3,7 @@ import numpy as np
 import copy
 import scipy
 
-matrixA = np.array([[2,4,2], [4,-10,2], [1,2,4]])
-vectorB = np.array([[13,-10,22]], dtype=float)
-
-matrixC = np.array([[0,1,1], [1,3,7], [2,4,8]])
-vectorD = np.array([[-9,5,7,11]])
-
-matrixE = np.array([[2, 5, 8, 7], [5, 2, 2, 8], [7, 5, 6, 6], [5, 4, 4, 8]])
-matrixP = np.array([[0,0,0,1], [0,0,1,0], [1,0,0,0], [0,1,0,0]])
-vectorP = np.array([[4,3,1,2]])
+matrixA = np.array([[0,1,1], [1,3,7], [2,4,8]])
 
 def lu_factorization_pivot_anywhere(matrix):
 
@@ -63,6 +55,6 @@ def lu_factorization_pivot_anywhere(matrix):
 
     return (total_perm_vector,l,u)
 
-print(np.allclose(scipy.linalg.lu(matrixC, p_indices=True)[0], lu_factorization_pivot_anywhere(matrixC)[0]))
-print(np.allclose(scipy.linalg.lu(matrixC, p_indices=True)[1], lu_factorization_pivot_anywhere(matrixC)[1]))
-print(np.allclose(scipy.linalg.lu(matrixC, p_indices=True)[2], lu_factorization_pivot_anywhere(matrixC)[2]))
+print(np.allclose(scipy.linalg.lu(matrixA, p_indices=True)[0], lu_factorization_pivot_anywhere(matrixA)[0]))
+print(np.allclose(scipy.linalg.lu(matrixA, p_indices=True)[1], lu_factorization_pivot_anywhere(matrixA)[1]))
+print(np.allclose(scipy.linalg.lu(matrixA, p_indices=True)[2], lu_factorization_pivot_anywhere(matrixA)[2]))
