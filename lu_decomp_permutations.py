@@ -2,6 +2,7 @@
 import numpy as np
 import copy
 import scipy
+import time
 
 matrixA = np.array([[0,1,1], [1,3,7], [2,4,8]])
 
@@ -55,6 +56,22 @@ def lu_factorization_pivot_anywhere(matrix):
 
     return (total_perm_vector,l,u)
 
-print(np.allclose(scipy.linalg.lu(matrixA, p_indices=True)[0], lu_factorization_pivot_anywhere(matrixA)[0]))
-print(np.allclose(scipy.linalg.lu(matrixA, p_indices=True)[1], lu_factorization_pivot_anywhere(matrixA)[1]))
-print(np.allclose(scipy.linalg.lu(matrixA, p_indices=True)[2], lu_factorization_pivot_anywhere(matrixA)[2]))
+#print(np.allclose(scipy.linalg.lu(matrixA, p_indices=True)[0], lu_factorization_pivot_anywhere(matrixA)[0]))
+#print(np.allclose(scipy.linalg.lu(matrixA, p_indices=True)[1], lu_factorization_pivot_anywhere(matrixA)[1]))
+#print(np.allclose(scipy.linalg.lu(matrixA, p_indices=True)[2], lu_factorization_pivot_anywhere(matrixA)[2]))
+
+matrixRandom = np.random.randint(1, 100, size=(100,100))
+
+# Time my implementation
+start_time = time.time()
+my_result = lu_factorization_pivot_anywhere(matrixRandom)
+my_time = time.time() - start_time
+print(f"My implementation: {my_time:.4f} seconds")
+
+# Time scipy implementation 
+start_time = time.time()
+scipy_result = scipy.linalg.lu(matrixRandom, permute_l=True)
+scipy_time = time.time() - start_time
+print(f"SciPy implementation: {scipy_time:.4f} seconds")
+
+print(f"SciPy is {my_time/scipy_time:.2f}x faster")
